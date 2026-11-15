@@ -592,19 +592,105 @@ function Projects() {
                     </div>
                   </div>
 
-                  {/* Architecture Drawer */}
+                  {/* Visual Draw.io Architecture Flow Canvas */}
                   {p.architecture && showArch && (
-                    <div className="mb-6 p-4 rounded-lg bg-slate-900 text-slate-100 border border-slate-700 text-xs font-mono space-y-3">
-                      <div className="text-blue-400 font-bold uppercase tracking-wider text-[11px] flex items-center gap-2">
-                        <Cpu size={14} /> System Architecture Overview
+                    <div className="drawio-canvas">
+                      <div className="drawio-header-bar">
+                        <div className="drawio-header-title">
+                          <Cpu size={15} />
+                          <span>System Architecture Diagram (Draw.io Flow)</span>
+                        </div>
+                        <span style={{ fontSize: '10px', color: '#94a3b8', background: '#1e293b', padding: '2px 8px', borderRadius: '4px' }}>
+                          Local Offline RAG Stack
+                        </span>
                       </div>
-                      <div>
-                        <span className="text-amber-400 font-semibold block mb-1">1. Document Ingestion Pipeline:</span>
-                        <p className="text-slate-300 leading-relaxed">{p.architecture.ingestion}</p>
+
+                      {/* Pipeline 1: Document Ingestion */}
+                      <div className="drawio-pipeline-label" style={{ color: '#fbbf24' }}>
+                        <span>⚡ 1. Document Ingestion Pipeline</span>
                       </div>
-                      <div>
-                        <span className="text-emerald-400 font-semibold block mb-1">2. Retrieval & RAG Pipeline:</span>
-                        <p className="text-slate-300 leading-relaxed">{p.architecture.retrieval}</p>
+                      <div className="drawio-flow-container">
+                        <div className="drawio-node" style={{ borderColor: 'rgba(59, 130, 246, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' }}>Client</span>
+                          <div className="drawio-node-title">📄 PDF Upload</div>
+                          <div className="drawio-node-sub">React / Drag & Drop</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(168, 85, 247, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc' }}>Backend</span>
+                          <div className="drawio-node-title">⚙️ pdf-parse</div>
+                          <div className="drawio-node-sub">NestJS Parser</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(236, 72, 153, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(236, 72, 153, 0.2)', color: '#f472b6' }}>Chunker</span>
+                          <div className="drawio-node-title">✂️ LangChain</div>
+                          <div className="drawio-node-sub">800c / 150 overlap</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(234, 179, 8, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#facc15' }}>Embeddings</span>
+                          <div className="drawio-node-title">🧠 nomic-embed</div>
+                          <div className="drawio-node-sub">768D Vector (Ollama)</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(34, 197, 94, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }}>Database</span>
+                          <div className="drawio-node-title">🗄️ Qdrant DB</div>
+                          <div className="drawio-node-sub">HNSW Indexing</div>
+                        </div>
+                      </div>
+
+                      {/* Pipeline 2: Chat Retrieval & Generation */}
+                      <div className="drawio-pipeline-label" style={{ color: '#34d399' }}>
+                        <span>💬 2. Retrieval & Generation Pipeline</span>
+                      </div>
+                      <div className="drawio-flow-container" style={{ marginBottom: 0 }}>
+                        <div className="drawio-node" style={{ borderColor: 'rgba(59, 130, 246, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' }}>Query</span>
+                          <div className="drawio-node-title">💬 User Prompt</div>
+                          <div className="drawio-node-sub">SSE Stream Request</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(239, 68, 68, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171' }}>Guardrail</span>
+                          <div className="drawio-node-title">🛡️ PromptGuard</div>
+                          <div className="drawio-node-sub">Injection & XML Shield</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(34, 197, 94, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }}>Vector Search</span>
+                          <div className="drawio-node-title">🎯 Cosine Match</div>
+                          <div className="drawio-node-sub">Top 4 Chunks Qdrant</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(168, 85, 247, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc' }}>Memory</span>
+                          <div className="drawio-node-title">🧠 Session Buffer</div>
+                          <div className="drawio-node-sub">Sliding 5-Turn Memory</div>
+                        </div>
+
+                        <span className="drawio-arrow">➔</span>
+
+                        <div className="drawio-node" style={{ borderColor: 'rgba(14, 165, 233, 0.4)' }}>
+                          <span className="drawio-node-tag" style={{ background: 'rgba(14, 165, 233, 0.2)', color: '#38bdf8' }}>LLM Engine</span>
+                          <div className="drawio-node-title">🤖 Llama 3.2</div>
+                          <div className="drawio-node-sub">SSE Token Stream</div>
+                        </div>
                       </div>
                     </div>
                   )}
