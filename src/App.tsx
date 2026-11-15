@@ -572,21 +572,21 @@ function Projects() {
                       {p.demoVideo && (
                         <button
                           onClick={() => setActiveVideo(p.demoVideo)}
-                          className="github-link-btn !bg-red-600 !border-red-600 hover:!bg-red-700 !text-white cursor-pointer"
+                          className="demo-video-btn"
                           title="Watch Demo Video"
                         >
-                          <Play size={14} className="fill-white" />
-                          <span>Demo</span>
+                          <Play size={13} fill="currentColor" />
+                          <span>Watch Demo</span>
                         </button>
                       )}
                       {p.architecture && (
                         <button
                           onClick={() => setShowArch(!showArch)}
-                          className="github-link-btn !bg-indigo-600 !border-indigo-600 hover:!bg-indigo-700 !text-white cursor-pointer"
+                          className="arch-toggle-btn"
                           title="View System Architecture"
                         >
-                          <Cpu size={14} />
-                          <span>{showArch ? 'Hide Arch' : 'Arch'}</span>
+                          <Cpu size={13} />
+                          <span>{showArch ? 'Hide Arch' : 'Architecture'}</span>
                         </button>
                       )}
                     </div>
@@ -649,32 +649,32 @@ function Projects() {
       {/* Video Modal Player */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          className="video-modal-backdrop"
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative"
+            className="video-modal-container"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 text-white">
+            <div className="video-modal-header">
               <div className="flex items-center gap-2 font-semibold">
                 <Play size={18} className="text-red-500 fill-red-500" />
                 <span>AI Legal Research Assistant — Live Demo</span>
               </div>
               <button
                 onClick={() => setActiveVideo(null)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
+                className="video-modal-close-btn"
                 title="Close"
               >
                 <X size={20} />
               </button>
             </div>
-            <div className="p-2 bg-black flex justify-center">
+            <div className="video-modal-body">
               <video
                 src={activeVideo}
                 controls
                 autoPlay
-                className="w-full max-h-[75vh] rounded-lg"
+                className="video-modal-video"
               />
             </div>
           </div>

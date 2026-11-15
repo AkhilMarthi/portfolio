@@ -356,6 +356,135 @@ textarea{resize:vertical}
   color: #60a5fa !important;
   box-shadow: 0 0 12px rgba(96, 165, 250, 0.25) !important;
 }
+
+/* DEMO VIDEO & ARCH BUTTONS */
+.demo-video-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+  padding: 0.375rem 0.75rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border: 1px solid #ef4444 !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+.demo-video-btn:hover {
+  background-color: #b91c1c !important;
+  border-color: #f87171 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4) !important;
+}
+
+.arch-toggle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+  padding: 0.375rem 0.75rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border: 1px solid #6366f1 !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+.arch-toggle-btn:hover {
+  background-color: #4338ca !important;
+  border-color: #818cf8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4) !important;
+}
+
+/* VIDEO MODAL STYLES */
+.video-modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.5rem !important;
+}
+
+.video-modal-container {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  border-radius: 1rem !important;
+  width: 100% !important;
+  max-width: 56rem !important;
+  overflow: hidden !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
+  position: relative !important;
+  animation: modalScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes modalScaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.video-modal-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1rem 1.5rem !important;
+  border-bottom: 1px solid #1e293b !important;
+  color: #ffffff !important;
+  background: #090e1a !important;
+}
+
+.video-modal-close-btn {
+  color: #94a3b8 !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0.25rem !important;
+  border-radius: 0.375rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: color 0.2s !important;
+}
+.video-modal-close-btn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.video-modal-body {
+  padding: 0.75rem !important;
+  background-color: #000000 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.video-modal-video {
+  width: 100% !important;
+  max-height: 75vh !important;
+  border-radius: 0.5rem !important;
+  display: block !important;
+  outline: none !important;
+}
 .min-h-screen{min-height:100vh}
 .h-1{height:.25rem}.h-2{height:.5rem}.h-3{height:.75rem}.h-6{height:1.5rem}
 .h-8{height:2rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}
