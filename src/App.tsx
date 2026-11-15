@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Mail, Phone, MapPin, Menu, X,
-  Clock, Code2, Users, Zap, GraduationCap, Award, Heart, ArrowUp, Send
+  Clock, Code2, Users, Zap, GraduationCap, Award, Heart, ArrowUp, Send, ExternalLink
 } from 'lucide-react';
 import './index.css';
 
@@ -129,7 +129,7 @@ const SKILLS = [
       { name: 'JavaScript (ES6+), HTML5 & CSS3', level: 94 },
       { name: 'React.js (v18) & Next.js', level: 90 },
       { name: 'Redux & Context API', level: 88 },
-      { name: 'Python', level: 82 },
+      { name: 'Python', level: 50 },
     ],
   },
   {
@@ -190,6 +190,7 @@ const PROJECTS = [
     title: 'AI Legal Research Assistant',
     company: 'Independent / Full-Stack Project',
     duration: '2026',
+    github: 'https://github.com/AkhilMarthi/Legal-research-assistant',
     description:
       'Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 512-token overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.',
     achievements: [
@@ -531,8 +532,21 @@ function Projects() {
                 <img src={p.image} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-8">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 gap-2">
                   <h3 className="text-2xl font-bold text-gray-900">{p.title}</h3>
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 text-white hover:bg-gray-800 rounded-lg text-xs font-semibold transition-all hover:scale-105 transform flex-shrink-0 shadow-sm"
+                      title="View GitHub Repository"
+                    >
+                      <GithubIcon size={14} />
+                      <span>Source Code</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
                 </div>
                 <div className="flex items-center gap-4 mb-4 text-sm text-gray-600 relative">
                   <div className="flex items-center gap-1">
@@ -564,6 +578,21 @@ function Projects() {
                     ))}
                   </div>
                 </div>
+                {p.github && (
+                  <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-xs text-gray-500 font-medium">Open Source Repository</span>
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                    >
+                      <GithubIcon size={16} />
+                      <span>View on GitHub</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}

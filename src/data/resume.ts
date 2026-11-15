@@ -85,6 +85,7 @@ export const projects = [
   {
     title: "AI Legal Research Assistant",
     company: "Independent / Full-Stack Project",
+    github: "https://github.com/AkhilMarthi/Legal-research-assistant",
     tags: ["NestJS", "TypeScript", "React.js", "Ollama (llama3.2 + nomic-embed-text)", "Qdrant Vector DB", "Docker Compose", "Server-Sent Events (SSE)"],
     bullets: [
       "Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 512-token overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.",

@@ -92,6 +92,21 @@ textarea{resize:vertical}
   border-color: #1f2937 !important;
 }
 
+.dark .border-gray-100 {
+  border-color: #1f2937 !important;
+}
+
+.dark a.bg-gray-900 {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dark a.bg-gray-900:hover {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+}
+
 .dark .border-gray-300 {
   border-color: #374151 !important;
 }
