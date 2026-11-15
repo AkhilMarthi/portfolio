@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Mail, Phone, MapPin, Menu, X,
-  Clock, Code2, Users, Zap, GraduationCap, Award, Heart, ArrowUp, Send, ExternalLink
+  Clock, Code2, Users, Zap, GraduationCap, Award, Heart, ArrowUp, Send, ExternalLink,
+  Play, Cpu
 } from 'lucide-react';
 import './index.css';
 
@@ -191,10 +192,15 @@ const PROJECTS = [
     company: 'Independent / Full-Stack Project',
     duration: '2026',
     github: 'https://github.com/AkhilMarthi/Legal-research-assistant',
+    demoVideo: '/videos/legal-ai-demo.mp4',
+    architecture: {
+      ingestion: 'PDF Upload ➔ pdf-parse ➔ 800-char Overlapping Chunks ➔ nomic-embed-text (768D) ➔ Qdrant Vector DB',
+      retrieval: 'User Query ➔ PromptGuard Heuristic Scan ➔ Qdrant Cosine Similarity (Top 4 Chunks) ➔ Sliding Window Memory ➔ Llama 3.2 SSE Token Stream',
+    },
     description:
-      'Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 512-token overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.',
+      'Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 800-character overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.',
     achievements: [
-      'Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 512-token overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.',
+      'Architected a legal document intelligence platform supporting PDF/MD/TXT uploads, 800-character overlapping semantic chunking, 768D vector embeddings, and Qdrant cosine similarity search to retrieve context and generate grounded answers via llama3.2.',
       'Streamed LLM responses token-by-token to the React frontend using Server-Sent Events (SSE) via NestJS Observable for a ChatGPT-style streaming UX.',
       'Built session-based conversation memory, structured citations, SHA-256 embedding caching, and PromptGuardService injection protection utilizing XML envelope boundaries.',
     ],
@@ -517,6 +523,9 @@ function Skills() {
 
 // ─── PROJECTS ─────────────────────────────────────────────
 function Projects() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [showArch, setShowArch] = useState(false);
+
   return (
     <section id="projects" className="py-10 md:py-20 bg-gray-50">
       <div className="container mx-auto px-6">
@@ -527,55 +536,108 @@ function Projects() {
         </div>
         <div className="grid lg:grid-cols-2 gap-8">
           {PROJECTS.map((p, i) => (
-            <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="h-48 overflow-hidden">
-                <img src={p.image} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-              </div>
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-4 gap-3">
-                  <h3 className="text-2xl font-bold text-gray-900">{p.title}</h3>
-                  {p.github && (
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="github-link-btn"
-                      title="View GitHub Repository"
+            <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
+              <div>
+                <div className="h-48 overflow-hidden relative group">
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                  {p.demoVideo && (
+                    <button
+                      onClick={() => setActiveVideo(p.demoVideo)}
+                      className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                      title="Play Demo Video"
                     >
-                      <GithubIcon size={16} />
-                      <span>GitHub</span>
-                      <ExternalLink size={13} />
-                    </a>
+                      <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                        <Play size={24} className="fill-white ml-1" />
+                      </div>
+                    </button>
                   )}
                 </div>
-                <div className="flex items-center gap-4 mb-4 text-sm text-gray-600 relative">
-                  <div className="flex items-center gap-1">
-                    <Users size={16} />
-                    <span>{p.company}</span>
+                <div className="p-8">
+                  <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
+                    <h3 className="text-2xl font-bold text-gray-900">{p.title}</h3>
+                    <div className="flex items-center gap-2">
+                      {p.github && (
+                        <a
+                          href={p.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="github-link-btn"
+                          title="View GitHub Repository"
+                        >
+                          <GithubIcon size={16} />
+                          <span>Code</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      )}
+                      {p.demoVideo && (
+                        <button
+                          onClick={() => setActiveVideo(p.demoVideo)}
+                          className="github-link-btn !bg-red-600 !border-red-600 hover:!bg-red-700 !text-white cursor-pointer"
+                          title="Watch Demo Video"
+                        >
+                          <Play size={14} className="fill-white" />
+                          <span>Demo</span>
+                        </button>
+                      )}
+                      {p.architecture && (
+                        <button
+                          onClick={() => setShowArch(!showArch)}
+                          className="github-link-btn !bg-indigo-600 !border-indigo-600 hover:!bg-indigo-700 !text-white cursor-pointer"
+                          title="View System Architecture"
+                        >
+                          <Cpu size={14} />
+                          <span>{showArch ? 'Hide Arch' : 'Arch'}</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 absolute right-0">
-                    <Clock size={16} />
-                    <span>{p.duration}</span>
+
+                  {/* Architecture Drawer */}
+                  {p.architecture && showArch && (
+                    <div className="mb-6 p-4 rounded-lg bg-slate-900 text-slate-100 border border-slate-700 text-xs font-mono space-y-3">
+                      <div className="text-blue-400 font-bold uppercase tracking-wider text-[11px] flex items-center gap-2">
+                        <Cpu size={14} /> System Architecture Overview
+                      </div>
+                      <div>
+                        <span className="text-amber-400 font-semibold block mb-1">1. Document Ingestion Pipeline:</span>
+                        <p className="text-slate-300 leading-relaxed">{p.architecture.ingestion}</p>
+                      </div>
+                      <div>
+                        <span className="text-emerald-400 font-semibold block mb-1">2. Retrieval & RAG Pipeline:</span>
+                        <p className="text-slate-300 leading-relaxed">{p.architecture.retrieval}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-600 relative">
+                    <div className="flex items-center gap-1">
+                      <Users size={16} />
+                      <span>{p.company}</span>
+                    </div>
+                    <div className="flex items-center gap-1 absolute right-0">
+                      <Clock size={16} />
+                      <span>{p.duration}</span>
+                    </div>
                   </div>
-                </div>
-                <p className="text-gray-700 mb-6 leading-relaxed">{p.description}</p>
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Key Achievements:</h4>
-                  <ul className="space-y-2">
-                    {p.achievements.map((a, ai) => (
-                      <li key={ai} className="flex items-start">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{a}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Technologies:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {p.technologies.map((t) => (
-                      <span key={t} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">{t}</span>
-                    ))}
+                  <p className="text-gray-700 mb-6 leading-relaxed">{p.description}</p>
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-gray-900 mb-3">Key Achievements:</h4>
+                    <ul className="space-y-2">
+                      {p.achievements.map((a, ai) => (
+                        <li key={ai} className="flex items-start">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Technologies:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {p.technologies.map((t) => (
+                        <span key={t} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">{t}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -583,6 +645,41 @@ function Projects() {
           ))}
         </div>
       </div>
+
+      {/* Video Modal Player */}
+      {activeVideo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            className="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 text-white">
+              <div className="flex items-center gap-2 font-semibold">
+                <Play size={18} className="text-red-500 fill-red-500" />
+                <span>AI Legal Research Assistant — Live Demo</span>
+              </div>
+              <button
+                onClick={() => setActiveVideo(null)}
+                className="text-slate-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
+                title="Close"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="p-2 bg-black flex justify-center">
+              <video
+                src={activeVideo}
+                controls
+                autoPlay
+                className="w-full max-h-[75vh] rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
